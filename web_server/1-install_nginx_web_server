@@ -3,13 +3,13 @@
 # request to / returns a page containing "Holberton School"
 
 # Update package lists and install nginx non-interactively
-apt-get update -y
-apt-get install -y nginx
+sudo apt-get update -y
+sudo apt-get install -y nginx
 
 # Create the index page nginx will serve at the root
 echo "Holberton School for the win!" > /var/www/html/index.html
 
 # Make sure nginx is enabled
-service nginx start
+sudo service nginx start
 
 exit 0
