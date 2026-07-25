@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Installs and configures nginx on an Ubuntu machine so that a GET
+# request to / returns a page containing "Holberton School"
 
 # Update package lists and install nginx non-interactively
 apt-get update -y
