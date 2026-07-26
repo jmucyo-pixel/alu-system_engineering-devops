@@ -1,24 +1,10 @@
 #!/usr/bin/env bash
-# Configures a fresh Ubuntu machine so that Nginx is installed and
-# /redirect_me returns a 301 redirect to a YouTube video.
-
-# Update package list and install nginx (non-interactive, no prompts)
-apt-get update -y
-apt-get install -y nginx
-
-# Make sure the server is running before we edit config
-service nginx start
-
-# Insert the redirect rule right after the "listen" line inside the
-# default server block, unless it's already there.
-if ! grep -q "location /redirect_me" /etc/nginx/sites-available/default; then
-  sed -i '/listen 80 default_server;/a\
-\tlocation /redirect_me {\
-\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\
-\t}' /etc/nginx/sites-available/default
-fi
-
-# Restart nginx to apply the new configuration
-service nginx restart
-
-exit 0
+# Configures an Nginx server so that /redirect_me redirects to another page
+# The redirection is a "301 Moved Permanently"
+sudo apt-get update
+sudo apt-get -y install nginx ufw
+sudo ufw allow 'Nginx HTTP'
+echo "Holberton School" | sudo tee /var/www/html/index.html > /dev/null
+# Add redirect rule for /redirect_me using a rewrite rule
+sudo sed -i 's|server_name _;|server_name _;\n\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;|' /etc/nginx/sites-available/default
+sudo service nginx restart
