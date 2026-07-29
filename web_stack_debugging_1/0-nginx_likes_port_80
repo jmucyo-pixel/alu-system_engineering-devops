@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Starts Nginx, which was installed but blocked from auto-starting by policy-rc.d
+service nginx start
